@@ -3,8 +3,10 @@
 // the screen's usable part, so the title bar goes above the top and the bottom over the taskbar. This maximizes it at
 // startup, as double-clicking its title bar does.
 //
-// Only in the first seconds after the game starts, and only once: un-maximizing it later is left alone. Fullscreen and
-// borderless windows are never touched (Host::MaximizeWindow leaves them).
+// The host does it as the window appears, seconds before plugins run, once this plugin has asked it to
+// (Host::MaximizeAtStart, kept for the next starts while the plugin is installed and on). The check here is for the
+// first start after installing: in the first seconds, and only once, so un-maximizing it later is left alone.
+// Fullscreen and borderless windows are never touched.
 
 [Setting name="Always maximize" description="Maximize the window at startup even when it fits the screen"]
 bool AlwaysMaximize = false;
@@ -16,6 +18,12 @@ bool done = false;
 void Main()
 {
     started = Host::Time();
+    OnSettingsChanged();
+}
+
+void OnSettingsChanged()
+{
+    Host::MaximizeAtStart(AlwaysMaximize ? 2 : 1);
 }
 
 void Update(float dt)
