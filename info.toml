@@ -1,0 +1,9 @@
+[meta]
+name = "Fit Window"
+version = "0.1.0"
+author = "AnythingGoes"
+description = "Maximizes the game's bordered window at startup when it doesn't fit the screen (the title bar above the top, the bottom over the taskbar)."
+min_host = "0.15.0"
+
+[script]
+files = ["main.as"]
